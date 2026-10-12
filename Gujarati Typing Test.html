@@ -1,0 +1,493 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Gujarati Typing Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;600;800&family=Hind+Vadodara:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one centered column. Bandhani dot strip on top, a single stats rail, a large passage card, then the typing box. Results replace the typing box. */
+:root{
+  --bg:#F2F3F8;
+  --surface:#FFFFFF;
+  --fg:#14172B;
+  --muted:#5B6078;
+  --line:#D9DCE9;
+  --accent:#2B3A8C;
+  --accent-fg:#FFFFFF;
+  --gold:#E3A008;
+  --gold-soft:#FBEFC8;
+  --ok:#16794A;
+  --ok-soft:#DDF3E7;
+  --bad:#C0283A;
+  --bad-soft:#FBE0E3;
+  --font-display:'Anek Gujarati','Noto Sans Gujarati',system-ui,sans-serif;
+  --font-text:'Hind Vadodara','Noto Sans Gujarati',system-ui,sans-serif;
+  --font-num:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --scale:1;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1122;--surface:#171B33;--fg:#E9EBF8;--muted:#9AA0C2;--line:#2A3053;
+    --accent:#8C9BFF;--accent-fg:#0E1122;--gold:#F2B83A;--gold-soft:#3A2F10;
+    --ok:#58D39A;--ok-soft:#12372A;--bad:#FF7A8A;--bad-soft:#401A22;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1122;--surface:#171B33;--fg:#E9EBF8;--muted:#9AA0C2;--line:#2A3053;
+  --accent:#8C9BFF;--accent-fg:#0E1122;--gold:#F2B83A;--gold-soft:#3A2F10;
+  --ok:#58D39A;--ok-soft:#12372A;--bad:#FF7A8A;--bad-soft:#401A22;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-text);font-size:16px;line-height:1.6;padding-inline:16px;padding-block:0 40px}
+.wrap{max-width:960px;margin-inline:auto;display:flex;flex-direction:column;gap:20px}
+.dots{height:14px;margin-inline:-16px;background:radial-gradient(circle,var(--accent) 1.8px,transparent 2.2px) 0 0/14px 14px;opacity:.45}
+header.top{display:flex;flex-direction:column;gap:2px;padding-top:6px}
+h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.25;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.sub{margin:0;color:var(--muted);font-size:.95rem}
+.controls{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+.group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.lbl{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--fg);font:600 .9rem var(--font-text);padding:8px 14px;cursor:pointer;min-height:40px}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-checked="true"]{background:var(--accent);color:var(--accent-fg)}
+button:focus-visible,textarea:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.chk{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.stat{padding:12px 16px;display:flex;flex-direction:column;gap:0;min-width:0}
+.stat+.stat{border-left:1px solid var(--line)}
+.stat .v{font-family:var(--font-num);font-weight:600;font-size:clamp(1.5rem,5vw,2.3rem);line-height:1.2;font-variant-numeric:tabular-nums}
+.stat.time .v{color:var(--accent)}
+.stat .k{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:-8px}
+.bar i{display:block;height:100%;width:100%;background:var(--gold);transform-origin:left;transition:transform .12s linear}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.passage-card{padding:18px 20px;display:flex;flex-direction:column;gap:10px;cursor:text}
+.meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted);letter-spacing:.04em}
+.meta b{color:var(--fg);font-weight:600}
+#passage{font-family:var(--font-text);font-size:calc(1.4rem*var(--scale));line-height:2.15;margin:0;overflow-wrap:anywhere;user-select:none}
+.w{padding:.04em .14em;border-radius:6px}
+.w.ok{color:var(--ok)}
+.w.bad{color:var(--bad);background:var(--bad-soft);text-decoration:underline wavy;text-underline-offset:.2em}
+.w.cur{background:var(--gold-soft);box-shadow:inset 0 -3px 0 var(--gold)}
+.w.cur.off{background:var(--bad-soft);box-shadow:inset 0 -3px 0 var(--bad)}
+.w.cur.hit{background:var(--ok-soft);box-shadow:inset 0 -3px 0 var(--ok)}
+.typing{display:flex;flex-direction:column;gap:12px}
+textarea{width:100%;min-height:128px;resize:vertical;font-family:var(--font-text);font-size:calc(1.3rem*var(--scale));line-height:1.8;padding:14px 16px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--fg)}
+textarea:focus{border-color:var(--accent)}
+textarea:disabled{opacity:.6}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font:600 .95rem var(--font-text);min-height:44px;padding:8px 18px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.btn.sm{min-height:40px;padding:6px 12px}
+.hint{color:var(--muted);font-size:.85rem;margin-left:auto}
+.status{font-size:.9rem;color:var(--muted);min-height:1.5em}
+/* results */
+.results{padding:22px;display:flex;flex-direction:column;gap:20px}
+.res-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.res-head h2{font-family:var(--font-display);font-size:1.5rem;margin:0}
+.pill{display:inline-block;padding:3px 12px;border-radius:99px;font-size:.8rem;font-weight:600;background:var(--gold-soft);color:var(--fg);border:1px solid var(--gold)}
+.pill.best{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.res-grid div{border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-width:0}
+.res-grid .v{display:block;font-family:var(--font-num);font-weight:600;font-size:1.8rem;font-variant-numeric:tabular-nums}
+.res-grid .big .v{color:var(--accent);font-size:2.4rem}
+.res-grid .k{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.two>*{min-width:0}
+h3{font-family:var(--font-display);font-size:1.1rem;margin:0 0 8px}
+ul.miss{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+ul.miss li{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;padding:6px 10px;border-radius:8px;background:var(--bad-soft)}
+.miss .e{color:var(--ok);font-weight:600}
+.miss .t{color:var(--bad);text-decoration:line-through}
+.empty{color:var(--muted);margin:0}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line);white-space:nowrap;font-variant-numeric:tabular-nums}
+th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.line{font-size:.95rem;color:var(--muted);margin:0}
+details{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:10px 16px}
+summary{cursor:pointer;font-weight:600}
+details ul{margin:10px 0 4px;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+@media (max-width:600px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat:nth-child(3){border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .hint{margin-left:0;width:100%}
+  .passage-card{padding:14px}
+}
+@media (prefers-reduced-motion: reduce){.bar i{transition:none}}
+</style>
+
+<div class="wrap">
+  <div class="dots" aria-hidden="true"></div>
+  <header class="top">
+    <h1>ગુજરાતી ટાઇપિંગ ટેસ્ટ</h1>
+    <p class="sub">Gujarati Typing Test. Type the paragraph before the clock runs out. The timer starts on your first key.</p>
+  </header>
+
+  <section class="controls" aria-label="Test settings">
+    <div class="group">
+      <span class="lbl" id="durLbl">Time</span>
+      <div class="seg" role="radiogroup" aria-labelledby="durLbl" id="dur">
+        <button type="button" role="radio" data-d="60" aria-checked="true">1 min</button>
+        <button type="button" role="radio" data-d="120" aria-checked="false">2 min</button>
+        <button type="button" role="radio" data-d="180" aria-checked="false">3 min</button>
+        <button type="button" role="radio" data-d="300" aria-checked="false">5 min</button>
+      </div>
+    </div>
+    <div class="group">
+      <span class="lbl">Text size</span>
+      <div class="seg">
+        <button type="button" id="smaller" aria-label="Smaller text">A−</button>
+        <button type="button" id="bigger" aria-label="Larger text">A+</button>
+      </div>
+    </div>
+    <label class="chk" for="ignP"><input type="checkbox" id="ignP" checked> Ignore punctuation (. , ! ?)</label>
+  </section>
+
+  <section class="stats" aria-label="Live results" aria-live="off">
+    <div class="stat time"><span class="v" id="sTime">1:00</span><span class="k">Time left</span></div>
+    <div class="stat"><span class="v" id="sWpm">0</span><span class="k">Words / min</span></div>
+    <div class="stat"><span class="v" id="sAcc">100%</span><span class="k">Accuracy</span></div>
+    <div class="stat"><span class="v" id="sWords">0</span><span class="k">Correct words</span></div>
+  </section>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+
+  <section id="testPanel" class="typing">
+    <div class="card passage-card" id="passageCard">
+      <div class="meta"><span>Paragraph <b id="pNo">1</b></span><span>Word <b id="wNo">1</b> / <b id="wTot">0</b></span></div>
+      <p id="passage" lang="gu"></p>
+    </div>
+    <textarea id="ta" lang="gu" rows="4" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Type the Gujarati paragraph here" placeholder="અહીં ટાઇપ કરો… (Type here. Press space after each word.)"></textarea>
+    <div class="actions">
+      <button type="button" class="btn primary" id="restart">Restart</button>
+      <button type="button" class="btn" id="shuffle">New paragraph</button>
+      <button type="button" class="btn" id="finishNow" hidden>Finish now</button>
+      <span class="hint">Esc restarts. Switch your keyboard to Gujarati first.</span>
+    </div>
+    <div class="status" id="status" role="status"></div>
+  </section>
+
+  <section id="results" class="card results" hidden aria-live="polite">
+    <div class="res-head">
+      <h2>પરિણામ · Your result</h2>
+      <span class="pill" id="resRank"></span>
+      <span class="pill best" id="resBest" hidden>New personal best</span>
+    </div>
+    <div class="res-grid">
+      <div class="big"><span class="v" id="rWpm">0</span><span class="k">Net words / min</span></div>
+      <div><span class="v" id="rAcc">0%</span><span class="k">Accuracy</span></div>
+      <div><span class="v" id="rCpm">0</span><span class="k">Characters / min</span></div>
+      <div><span class="v" id="rOk">0</span><span class="k">Correct words</span></div>
+      <div><span class="v" id="rBad">0</span><span class="k">Wrong words</span></div>
+      <div><span class="v" id="rGross">0</span><span class="k">Gross words / min</span></div>
+    </div>
+    <p class="line" id="resLine"></p>
+    <div class="actions">
+      <button type="button" class="btn primary" id="again">Try again</button>
+      <button type="button" class="btn" id="another">New paragraph</button>
+      <button type="button" class="btn" id="copy">Copy result</button>
+    </div>
+    <div class="two">
+      <div>
+        <h3>Words to practise</h3>
+        <div id="missBox"></div>
+      </div>
+      <div>
+        <h3>Recent tests</h3>
+        <div class="tbl"><table><thead><tr><th>Date</th><th>Time</th><th>WPM</th><th>Acc.</th></tr></thead><tbody id="hist"></tbody></table></div>
+        <p class="line" id="bestLine"></p>
+      </div>
+    </div>
+  </section>
+
+  <details>
+    <summary>ગુજરાતી કીબોર્ડ કેવી રીતે ચાલુ કરવું · How to type in Gujarati</summary>
+    <ul>
+      <li>Windows: Settings → Time &amp; language → Language &amp; region → add Gujarati, then switch with Win + Space.</li>
+      <li>Mac: System Settings → Keyboard → Input Sources → add Gujarati, then switch with the Globe or Control + Space key.</li>
+      <li>Android or iPhone: add Gujarati in Gboard or your keyboard settings and tap the globe key.</li>
+      <li>Any computer: install the Google Input Tools extension and choose Gujarati (phonetic) to type with English letters.</li>
+      <li>Scoring counts whole words. A word is correct only when it matches the paragraph exactly, including matras and joined letters.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+(function(){
+'use strict';
+var PASSAGES=[
+"ગુજરાત ભારતના પશ્ચિમ કિનારે આવેલું એક સુંદર રાજ્ય છે. અહીંના લોકો મહેનતુ, મિલનસાર અને ઉદ્યોગસાહસિક તરીકે જાણીતા છે. ગુજરાતી ભાષા મીઠી અને સરળ છે. તહેવારોમાં અહીં ઘેર ઘેર આનંદ અને ઉત્સાહનું વાતાવરણ છવાઈ જાય છે.",
+"ઉત્તરાયણના દિવસે આખું આકાશ રંગબેરંગી પતંગોથી ભરાઈ જાય છે. નાનાં મોટાં સૌ ધાબા પર ચડીને પતંગ ચગાવે છે અને કાયપો છે ની બૂમો પાડે છે. તલસાંકળી, ચિક્કી અને ઊંધિયું ખાવાની મજા પણ કંઈક અનેરી હોય છે.",
+"નવરાત્રિમાં ગરબાના તાલે આખું ગુજરાત ઝૂમી ઊઠે છે. ચણિયાચોળી અને કેડિયું પહેરીને યુવાનો અને વડીલો સાથે મળીને રાસ રમે છે. માતાજીની આરતી અને ભક્તિગીતોથી વાતાવરણ પવિત્ર બની જાય છે.",
+"ગીરનું જંગલ એશિયાઈ સિંહોનું એકમાત્ર ઘર છે. દર વર્ષે દેશવિદેશથી હજારો પ્રવાસીઓ સિંહને જોવા આવે છે. સરકાર અને સ્થાનિક લોકોના પ્રયાસોથી સિંહોની સંખ્યામાં સતત વધારો થયો છે, જે આપણા સૌ માટે ગર્વની વાત છે.",
+"મહાત્મા ગાંધીનો જન્મ પોરબંદરમાં થયો હતો. તેમણે સત્ય અને અહિંસાના માર્ગે ચાલીને દેશને આઝાદી અપાવી. સાબરમતી આશ્રમમાં આજે પણ તેમના વિચારો અને જીવનની યાદો સચવાયેલી છે, જે દરેકને પ્રેરણા આપે છે.",
+"કચ્છનું સફેદ રણ પૂનમની રાત્રે ચાંદીની જેમ ચમકે છે. દર શિયાળામાં અહીં રણોત્સવ ઉજવાય છે, જેમાં હસ્તકલા, સંગીત અને લોકનૃત્યની ઝલક જોવા મળે છે. કચ્છી ભરતકામ સમગ્ર વિશ્વમાં પ્રસિદ્ધ છે.",
+"વરસાદની પહેલી ઝરમર પડતાં જ ધરતીમાંથી માટીની મીઠી સુગંધ આવે છે. ખેડૂતો હળ અને બળદ લઈને ખેતરે જાય છે અને નવી આશા સાથે બીજ વાવે છે. લીલાંછમ ખેતરો જોઈને મન પ્રસન્ન થઈ જાય છે.",
+"નિયમિત વાંચન કરવાથી જ્ઞાનમાં વધારો થાય છે અને વિચારશક્તિ તેજ બને છે. પુસ્તકો આપણા સાચા મિત્રો છે, જે ક્યારેય સાથ છોડતા નથી. રોજ થોડો સમય કાઢીને સારું સાહિત્ય વાંચવાની ટેવ પાડવી જોઈએ.",
+"નર્મદા નદી પર બનેલો સરદાર સરોવર ડેમ ગુજરાતની જીવાદોરી ગણાય છે. તેના પાણીથી લાખો ખેડૂતોના ખેતરો લીલાંછમ બન્યા છે. નજીકમાં આવેલી સરદાર પટેલની પ્રતિમા દુનિયાની સૌથી ઊંચી પ્રતિમા છે.",
+"સવારે વહેલા ઊઠીને કસરત કરવાથી શરીર સ્વસ્થ અને મન પ્રફુલ્લિત રહે છે. તાજાં ફળો, લીલાં શાકભાજી અને પૂરતું પાણી પીવું એ સારા સ્વાસ્થ્યની ચાવી છે. સ્વસ્થ શરીરમાં જ સ્વસ્થ મનનો વાસ હોય છે.",
+"અમદાવાદ ગુજરાતનું સૌથી મોટું શહેર છે. સાબરમતી નદીના કિનારે વસેલા આ શહેરની પોળો, જૂની હવેલીઓ અને ઐતિહાસિક ઇમારતોને કારણે તેને વિશ્વ ધરોહર શહેરનો દરજ્જો મળ્યો છે. ખાણીપીણીના શોખીનો માટે પણ અહીં ઘણું બધું છે.",
+"ગામડાની સાંજ ખૂબ જ શાંત અને સુંદર હોય છે. ગાયો ચરીને પાછી ફરે છે, ચૂલા પરથી રોટલાની સુગંધ આવે છે અને ચોરે બેસીને વડીલો વાતો કરે છે. આવી સાદગીભરી જિંદગીમાં સાચો આનંદ છુપાયેલો છે."
+];
+var KEY='gujaratiTypingTest.v1';
+var $=function(id){return document.getElementById(id)};
+var S={status:'idle',dur:60,order:[],pos:0,orig:[],exp:[],spans:[],tot:{c:0,w:0,ch:0},miss:[],t0:0,timer:0,scale:1,ignore:true,paraNo:1,last:null};
+
+function load(){try{var d=JSON.parse(localStorage.getItem(KEY));if(d&&d.best&&d.hist)return d}catch(e){}return {best:{},hist:[]}}
+function save(d){try{localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}}
+
+function shuffle(){
+  var a=PASSAGES.map(function(_,i){return i});
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}
+  if(S.order.length&&a[0]===S.order[S.pos]){var k=a.shift();a.push(k)}
+  S.order=a;S.pos=0;
+}
+function nextPassage(){S.pos++;if(S.pos>=S.order.length)shuffle()}
+
+function norm(w){
+  var r=w.normalize('NFC').replace(/[​-‍﻿]/g,'');
+  if(S.ignore){
+    r=r.replace(/^[\s"'“”‘’(\[]+/,'').replace(/[\s.,!?;:।\-–—)"'“”‘’\]]+$/,'');
+  }
+  return r;
+}
+function renorm(){S.exp=S.orig.map(norm)}
+
+function loadPassage(){
+  var text=PASSAGES[S.order[S.pos]];
+  S.orig=text.split(/\s+/).filter(Boolean);
+  renorm();
+  var p=$('passage');p.textContent='';S.spans=[];
+  S.orig.forEach(function(w,i){
+    var s=document.createElement('span');s.className='w';s.textContent=w;p.appendChild(s);
+    if(i<S.orig.length-1)p.appendChild(document.createTextNode(' '));
+    S.spans.push(s);
+  });
+  $('ta').value='';
+  $('pNo').textContent=S.paraNo;$('wTot').textContent=S.orig.length;
+  paint();
+}
+
+function parse(raw){return {tk:raw.split(/\s+/).filter(Boolean),tr:/\s$/.test(raw)}}
+
+function tally(p){
+  var r={c:0,w:0,ch:0,miss:[]};
+  var n=Math.min(p.tk.length,S.exp.length);
+  for(var i=0;i<n;i++){
+    var committed=i<p.tk.length-1||p.tr;
+    var ok=norm(p.tk[i])===S.exp[i];
+    if(!committed&&!ok)continue;
+    if(ok){r.c++;r.ch+=Array.from(S.orig[i]).length+1}
+    else{r.w++;r.miss.push([S.orig[i],p.tk[i]])}
+  }
+  return r;
+}
+
+function paint(){
+  var p=parse($('ta').value);
+  var tk=p.tk,cur=p.tr?tk.length:Math.max(tk.length-1,0);
+  for(var i=0;i<S.spans.length;i++){
+    var c='w';
+    if(i<tk.length&&(i<tk.length-1||p.tr)){
+      c+=(norm(tk[i])===S.exp[i])?' ok':' bad';
+    }else if(i===cur){
+      c+=' cur';
+      if(i<tk.length){
+        var t=norm(tk[i]);
+        if(t===S.exp[i])c+=' hit';
+        else if(S.exp[i].indexOf(t)!==0)c+=' off';
+      }
+    }
+    S.spans[i].className=c;
+  }
+  $('wNo').textContent=Math.min(cur+1,S.orig.length);
+  if(S.spans[cur]&&S.status==='running'){
+    var el=S.spans[cur];var card=$('passageCard');
+    // keep the active word in view on small screens
+    var r=el.getBoundingClientRect();
+    if(r.top<60||r.bottom>window.innerHeight-60){try{el.scrollIntoView({block:'center',behavior:'auto'})}catch(e){}}
+  }
+}
+
+function fmt(sec){sec=Math.max(0,Math.ceil(sec));var m=Math.floor(sec/60),s=sec%60;return m+':'+(s<10?'0':'')+s}
+
+function liveStats(){
+  var p=parse($('ta').value);
+  var cur=S.status==='running'?tally(p):{c:0,w:0};
+  var c=S.tot.c+cur.c,w=S.tot.w+cur.w;
+  var el=S.status==='running'?(performance.now()-S.t0)/1000:0;
+  var wpm=el>=3?c/(el/60):0;
+  $('sWpm').textContent=Math.round(wpm);
+  $('sAcc').textContent=(c+w)?Math.round(c/(c+w)*100)+'%':'100%';
+  $('sWords').textContent=c;
+}
+
+function tick(){
+  var el=(performance.now()-S.t0)/1000;
+  var left=S.dur-el;
+  $('sTime').textContent=fmt(left);
+  $('bar').style.transform='scaleX('+Math.max(0,left/S.dur)+')';
+  liveStats();
+  if(left<=0)finish(false);
+}
+
+function startTimer(){
+  S.status='running';S.t0=performance.now();
+  $('finishNow').hidden=false;
+  $('status').textContent='Go! Keep typing, the clock is running.';
+  S.timer=setInterval(tick,100);
+}
+
+function onInput(){
+  if(S.status==='finished')return;
+  var raw=$('ta').value;
+  if(S.status==='idle'){
+    if(!raw.trim())return;
+    startTimer();
+  }
+  paint();
+  var p=parse(raw),n=S.exp.length,L=n-1;
+  if(p.tk.length>=n&&(p.tk.length>n||p.tr||norm(p.tk[L])===S.exp[L])){
+    var t=tally(p);
+    S.tot.c+=t.c;S.tot.w+=t.w;S.tot.ch+=t.ch;S.miss=S.miss.concat(t.miss);
+    S.paraNo++;nextPassage();loadPassage();
+    $('status').textContent='Paragraph complete. Next one is ready.';
+  }
+  liveStats();
+}
+
+function rank(w){
+  if(w<8)return 'Beginner · શિખાઉ';
+  if(w<15)return 'Improving · પ્રગતિ';
+  if(w<25)return 'Skilled · કુશળ';
+  if(w<35)return 'Fast · ઝડપી';
+  return 'Expert · નિષ્ણાત';
+}
+
+function finish(early){
+  if(S.status!=='running')return;
+  clearInterval(S.timer);
+  var elapsed=early?Math.min(S.dur,(performance.now()-S.t0)/1000):S.dur;
+  elapsed=Math.max(elapsed,1);
+  var t=tally(parse($('ta').value));
+  S.tot.c+=t.c;S.tot.w+=t.w;S.tot.ch+=t.ch;S.miss=S.miss.concat(t.miss);
+  S.status='finished';
+  $('ta').disabled=true;$('finishNow').hidden=true;
+  $('sTime').textContent=fmt(Math.max(0,S.dur-elapsed));
+  $('bar').style.transform='scaleX('+Math.max(0,(S.dur-elapsed)/S.dur)+')';
+
+  var min=elapsed/60,c=S.tot.c,w=S.tot.w;
+  var wpm=Math.round(c/min*10)/10,gross=Math.round((c+w)/min*10)/10;
+  var cpm=Math.round(S.tot.ch/min),acc=(c+w)?Math.round(c/(c+w)*100):0;
+  $('rWpm').textContent=wpm;$('rAcc').textContent=acc+'%';$('rCpm').textContent=cpm;
+  $('rOk').textContent=c;$('rBad').textContent=w;$('rGross').textContent=gross;
+  $('resRank').textContent=rank(wpm);
+
+  var db=load(),k=String(S.dur),prev=db.best[k];
+  var isBest=c>0&&(!prev||wpm>prev.wpm||(wpm===prev.wpm&&acc>prev.acc));
+  if(isBest)db.best[k]={wpm:wpm,acc:acc};
+  $('resBest').hidden=!isBest;
+  if(c+w>0){db.hist.unshift({t:Date.now(),d:S.dur,wpm:wpm,acc:acc});db.hist=db.hist.slice(0,8);save(db)}
+  renderHist(db);
+
+  var line='Gujarati Typing Test: '+wpm+' words/min at '+acc+'% accuracy in '+Math.round(elapsed/6)/10+' min ('+c+' correct, '+w+' wrong).';
+  $('resLine').textContent=line;S.last=line;
+
+  var mb=$('missBox');mb.textContent='';
+  if(!S.miss.length){var e=document.createElement('p');e.className='empty';e.textContent='No wrong words. Clean run!';mb.appendChild(e)}
+  else{
+    var ul=document.createElement('ul');ul.className='miss';
+    S.miss.slice(0,12).forEach(function(m){
+      var li=document.createElement('li');
+      var a=document.createElement('span');a.className='e';a.textContent=m[0];
+      var b=document.createElement('span');b.className='t';b.textContent=m[1];
+      li.appendChild(a);li.appendChild(b);ul.appendChild(li);
+    });
+    mb.appendChild(ul);
+  }
+  $('testPanel').hidden=true;$('results').hidden=false;
+  try{$('results').scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}
+}
+
+function renderHist(db){
+  var tb=$('hist');tb.textContent='';
+  if(!db.hist.length){
+    var tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=4;td.textContent='Your finished tests will appear here.';tr.appendChild(td);tb.appendChild(tr);
+  }
+  db.hist.forEach(function(h){
+    var tr=document.createElement('tr');
+    var d=new Date(h.t);
+    var cells=[d.toLocaleDateString('en-IN',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),(h.d/60)+' min',h.wpm,h.acc+'%'];
+    cells.forEach(function(x){var td=document.createElement('td');td.textContent=x;tr.appendChild(td)});
+    tb.appendChild(tr);
+  });
+  var b=db.best[String(S.dur)];
+  $('bestLine').textContent=b?('Best for '+(S.dur/60)+' min: '+b.wpm+' WPM at '+b.acc+'%.'):'';
+}
+
+function reset(newPara){
+  clearInterval(S.timer);
+  S.status='idle';S.tot={c:0,w:0,ch:0};S.miss=[];S.paraNo=1;
+  if(newPara){nextPassage()}
+  $('ta').disabled=false;
+  $('results').hidden=true;$('testPanel').hidden=false;$('finishNow').hidden=true;
+  $('sTime').textContent=fmt(S.dur);$('bar').style.transform='scaleX(1)';
+  $('sWpm').textContent='0';$('sAcc').textContent='100%';$('sWords').textContent='0';
+  $('status').textContent='Ready. Click the box below and start typing.';
+  loadPassage();
+  try{$('ta').focus({preventScroll:false})}catch(e){}
+}
+
+/* wiring */
+$('ta').addEventListener('input',onInput);
+$('ta').addEventListener('keydown',function(e){
+  if(e.key==='Enter'){
+    e.preventDefault();
+    if(S.status==='running'&&!/\s$/.test(this.value)){this.value+=' ';onInput()}
+  }
+});
+['paste','drop','cut'].forEach(function(ev){$('ta').addEventListener(ev,function(e){e.preventDefault();$('status').textContent='Pasting is turned off. Please type the paragraph.'})});
+$('passageCard').addEventListener('click',function(){if(!$('ta').disabled)$('ta').focus()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){reset(false)}});
+$('restart').addEventListener('click',function(){reset(false)});
+$('shuffle').addEventListener('click',function(){reset(true)});
+$('again').addEventListener('click',function(){reset(false)});
+$('another').addEventListener('click',function(){reset(true)});
+$('finishNow').addEventListener('click',function(){finish(true)});
+$('dur').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-d]');if(!b)return;
+  Array.prototype.forEach.call($('dur').children,function(x){x.setAttribute('aria-checked',x===b?'true':'false')});
+  S.dur=parseInt(b.getAttribute('data-d'),10);reset(false);
+  renderHist(load());
+});
+function setScale(v){
+  S.scale=Math.min(1.5,Math.max(0.8,Math.round(v*10)/10));
+  document.documentElement.style.setProperty('--scale',S.scale);
+}
+$('smaller').addEventListener('click',function(){setScale(S.scale-0.1)});
+$('bigger').addEventListener('click',function(){setScale(S.scale+0.1)});
+$('ignP').addEventListener('change',function(){S.ignore=this.checked;renorm();paint()});
+$('copy').addEventListener('click',function(){
+  var btn=this,line=S.last||'';
+  var fallback=function(){
+    var r=document.createRange();r.selectNodeContents($('resLine'));
+    var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);
+    btn.textContent='Text selected, press Ctrl+C';
+  };
+  try{
+    navigator.clipboard.writeText(line).then(function(){btn.textContent='Copied'},fallback);
+  }catch(e){fallback()}
+  setTimeout(function(){btn.textContent='Copy result'},2500);
+});
+
+shuffle();
+renderHist(load());
+reset(false);
+})();
+</script>
+
+</body></html>
